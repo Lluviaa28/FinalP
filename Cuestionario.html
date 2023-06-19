@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <title>Cuestionario</title>
+    </head>
+    <body>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+            body{
+                align-items: center;
+                justify-content: center;
+                overflow: 0;
+                margin: 0;
+            }
+            .quiz-container{
+                background-color: skyblue;
+                background-image: linear-gradient(315deg, skyblue 0%, blue 100%);
+                border-radius: 10px;
+                box-shadow: 0 10px 20px 5px rgb(214, 139, 214);
+                width: 400px;
+                overflow: hidden;
+                
+            }
+            .quiz-header{
+                padding: 15px;
+            }
+            h2{
+                padding: 10px;
+                text-align: center;
+                margin: 0;
+            }
+            ul{
+                list-style: none;
+                padding: 0;
+            }
+            ul li{
+                font-size: 18px;
+                margin: 10px 0;
+            }
+            ul li label{
+                cursor: pointer;
+            }
+            button{
+                background-color: aqua;
+                color: white;
+                border: none;
+                display: block;
+                width: 100%;
+                cursor: pointer;
+                font-size: 20px;
+                font-family: 'Times New Roman', Times, serif;
+                padding: 20px;
+            }
+            button:hover{
+                background-color: aquamarine;
+            }
+            button:focus{
+                outline: none;
+                background-color: rgb(92, 203, 247);
+            }
+          </style>
+        <div style="margin: 24px;">
+            <nav class="navbar navbar-inverse navbar-stick-static-top">
+                <div class="container">
+                    <a class="navbar-brand" style="color: rgb(104, 104, 248);" href="index1-2.html">Inicio</a>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="menu.html">Menu</a>
+                        </li>
+                        <li>
+                            <a href="pedido.html">Pedido</a>
+                        </li>
+                        <li>
+                            <a href="Contacto.html">Contacto</a>
+                        </li>
+                        <li>
+                            <a href="pedidorealizado.html">Pedido Realizado</a>
+                        </li>
+                        <li>
+                            <a href="CalculadoraN.html">Calculadora</a>
+                        </li>
+                        <li>
+                            <a href="CalculadoraF.html">Calculadora Fisica</a>
+                        </li>
+                        <li>
+                            <a href="Perfil.html">Perfil</a>
+                        </li>
+                        <li>
+                            <a href="MoviesP.html">Movies</a>
+                        </li>
+                        <li class="active">
+                            <a href="Cuestionario.html">Cuestionario</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="quiz-container" id="quiz">
+                <div class="quiz-header">
+                    <div class="image-container">
+                        <img src="quiz.jpg" alt="Imagen" id="question-image" style="width: 250px; height: auto;">
+                    </div>
+                    <h2 id="question">Question Text</h2>
+                    <ul>
+                        <li>
+                            <input type="radio" name="answer" id="a" class="answer">
+                            <label for="a" id="a_text">Question</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="answer" id="b" class="answer">
+                            <label for="b" id="b_text">Question</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="answer" id="c" class="answer">
+                            <label for="c" id="c_text">Question</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="answer" id="d" class="answer">
+                            <label for="d" id="d_text">Question</label>
+                        </li>
+                    </ul>
+                </div>
+                <button id="static">Siguiente</button>
+            </div>
+        </div>
+        <script>
+            //este es un arreglo para los datos del cuestionario
+            const quizData =[
+                {
+                    question:"Quien gana en una pelea de los siguientes personajes?",
+                    image:"quiz1.jpg",
+                    a:"Superman",
+                    b:"Goku",
+                    c:"Batman",
+                    d:"Dios",
+                    correct:"a",
+                },
+                {
+                    question: "Quien es el alter ego de Ant-Man?",
+                    image: "quiz2.jpg",
+                    a: "Scott Lang",
+                    b: "Bruce Banner",
+                    c: "Steve Rogers",
+                    d: "Tony Stark",
+                    correct: "a",
+                },
+                {
+                    question: "Quien es el alter ego de Captain Marvel?",
+                    image: "quiz3.jpg",
+                    a: "Carol Danvers",
+                    b: "Natasha Romanoff",
+                    c: "Wanda Maximoff",
+                    d: "Diana Prince",
+                    correct: "a",
+                },
+                {
+                    question: "Quien es el alter ego de Star-Lord?",
+                    image: "quiz4.jpg",
+                    a: "Peter Quill",
+                    b: "Peter Parker",
+                    c: "Bruce Banner",
+                    d: "Tony Stark",
+                    correct: "a", 
+                },
+            ];
+            const quiz = document.getElementById('quiz');
+            const answerEls = document.querySelectorAll('.answer');
+            const questionEl = document.getElementById('question');
+            const submitBtn = document.getElementById('submit');
+            //dependiendo el numero de respuestas esto puede incrementar
+            const a_text = document.getElementById('a_text');
+            const b_text = document.getElementById('b_text');
+            const c_text = document.getElementById('c_text');
+            const d_text = document.getElementById('d_text');
+
+            let currentQuiz = 0; //esta variable nos va a servir para realizar el seguimiento de la pregunta actual del cuestionario
+
+            let score = 0; 
+
+            loadQuiz();
+
+            function loadQuiz(){
+                deselectAnswer();
+                const currentQuizData = quizData[currentQuiz];
+                questionEl.innerHTML = currentQuizData.question;
+
+                a_text.innerText = currentQuizData.a;
+                b_text.innerText = currentQuizData.b;
+                c_text.innerText = currentQuizData.c;
+                d_text.innerText = currentQuizData.d;
+
+                const questionImage = document.getElementById('question-image');
+                questionImage.src = currentQuizData.image;
+            }
+            function deselectAnswer(){
+                answerEls.forEach(answerEl => answerEl.checked = false);
+
+            }function getSelected(){
+                let answer;
+                answerEls.forEach(answerEl => {
+                    if(answerEl.checked){
+                        answer = answerEl.id;
+                    }
+                });
+                return answer;
+            }
+            submitBtn.addEventListener('click', () => {
+                const answer = getSelected();
+                if(answer){
+                if(answer === quizData[currentQuiz].correct){
+                    score++;
+                }
+                currentQuiz++;
+                if(currentQuiz < quizData.length){
+                    loadQuiz();
+                }else{
+                    quiz.innerHTML = `
+                    <h2>Contestaste ${score}/${quizData.length} de preguntas correctamente</h2>
+                   <button onclick = "location.reload()">Reload</botton>
+                    `
+                }
+             }
+            })
+        </script>
+    </body>
+</html>
